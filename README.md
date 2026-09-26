@@ -2,7 +2,7 @@
 
 [![LaTeX](https://img.shields.io/badge/LaTeX-Typesetting-blue.svg?logo=latex)](https://www.latex-project.org/)
 [![Normas APA](https://img.shields.io/badge/APA-7ª%20Edición-green.svg)](https://apastyle.apa.org/)
-[![Antigravity Skill](https://img.shields.io/badge/AI%20Agent-Skill-purple.svg)](https://agentskills.io/)
+[![Agent Skill](https://img.shields.io/badge/AI%20Agent-Skill-purple.svg)](https://agentskills.io/)
 [![Linter](https://img.shields.io/badge/Linter-Node.js%20%7C%20Python-orange.svg)](#herramienta-de-auditoría-linter)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
@@ -23,22 +23,47 @@ Skill completa y suite de ingeniería tipográfica para que asistentes de Inteli
 
 ## 🚀 Instalación Rápida
 
-### Opción 1: Instalación Global en Google Antigravity (Recomendada)
-Para que la skill esté disponible en todas tus sesiones y proyectos en tu máquina:
+La skill sigue el estándar abierto [Agent Skills](https://agentskills.io/) (`SKILL.md` con `name` y `description`), por lo que funciona tanto en **Google Antigravity** como en **Claude** (Claude Code, app de escritorio y claude.ai). Solo cambia la carpeta donde se instala. Clona siempre en una carpeta llamada `apa7-latex`.
+
+### Google Antigravity
+
+**Global** (todas tus sesiones y proyectos):
 
 ```bash
-# Clona el repositorio directamente en tu carpeta global de skills de Antigravity:
 git clone https://github.com/cguerrero1205/apa7-latex-skill.git ~/.gemini/config/skills/apa7-latex
 ```
 
-### Opción 2: Instalación por Proyecto (Workspace)
-Si deseas incluir la skill solo en un repositorio o trabajo de investigación específico:
+**Por proyecto** (en la raíz de tu proyecto):
 
 ```bash
-# En la raíz de tu proyecto:
 mkdir -p .agents/skills
 git clone https://github.com/cguerrero1205/apa7-latex-skill.git .agents/skills/apa7-latex
 ```
+
+### Claude Code (CLI, IDE y pestaña Code de la app de escritorio)
+
+**Personal** (todas tus sesiones y proyectos):
+
+```bash
+git clone https://github.com/cguerrero1205/apa7-latex-skill.git ~/.claude/skills/apa7-latex
+```
+
+**Por proyecto** (en la raíz de tu proyecto; se comparte con quien clone el repo):
+
+```bash
+mkdir -p .claude/skills
+git clone https://github.com/cguerrero1205/apa7-latex-skill.git .claude/skills/apa7-latex
+```
+
+Claude la activa automáticamente cuando trabajas con LaTeX/APA 7, o puedes invocarla directamente con `/apa7-latex`.
+
+### Claude (claude.ai y app de escritorio, modo chat)
+
+1. Descarga el repositorio como ZIP (**Code → Download ZIP**) y descomprímelo.
+2. Renombra la carpeta a `apa7-latex` y vuelve a comprimirla, de modo que el ZIP contenga `apa7-latex/SKILL.md`.
+3. En Claude ve a **Settings → Capabilities → Skills**, pulsa **Upload skill** y selecciona el ZIP.
+
+> Requiere tener activada la ejecución de código. En este modo Claude no edita archivos de tu disco: te devuelve el `.tex` corregido para descargar.
 
 ---
 

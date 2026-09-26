@@ -73,21 +73,27 @@ function lintLatex(filepath) {
     }
 
     // 6. Prohibición estricta de listas en Objetivos, Conclusiones y Recomendaciones
+    // Cualquier nivel de título cuyo texto empiece por la palabra clave
+    // (p. ej. "Objetivos Específicos", "Objetivo General", "Conclusiones y Recomendaciones").
+    // El cuerpo termina en el siguiente título de cualquier nivel o en \end{document}.
     const sections = [
-        { name: "Objetivos", regex: /\\section\*?\{Objetivos\}([\s\S]*?)(?=\\section|\Z)/i },
-        { name: "Conclusiones", regex: /\\section\*?\{Conclusiones\}([\s\S]*?)(?=\\section|\Z)/i },
-        { name: "Recomendaciones", regex: /\\section\*?\{Recomendaciones\}([\s\S]*?)(?=\\section|\Z)/i }
+        { name: "Objetivos", keyword: "Objetivos?" },
+        { name: "Conclusiones", keyword: "Conclusi(?:ó|o)n(?:es)?" },
+        { name: "Recomendaciones", keyword: "Recomendaci(?:ó|o)n(?:es)?" }
     ];
 
     for (const sec of sections) {
-        const match = content.match(sec.regex);
-        if (match) {
-            const secBody = match[1];
-            if (secBody.includes('\\begin{itemize}') || secBody.includes('\\begin{enumerate}')) {
-                errors.push(`Regla estricta violada en '${sec.name}': Se detectó uso de viñetas o numeraciones (\\begin{itemize}/\\begin{enumerate}). En APA 7, esta sección debe redactarse estrictamente en párrafos continuos con sangría de 1.27 cm.`);
-            } else {
-                passes.push(`Sección '${sec.name}': Redactada en párrafos continuos sin viñetas ni numeraciones.`);
-            }
+        const regex = new RegExp(
+            String.raw`\\(?:sub)*section\*?\{\s*` + sec.keyword +
+            String.raw`(?!\p{L})[^}]*\}([\s\S]*?)(?=\\(?:sub)*section\*?\{|\\end\{document\}|$(?![\s\S]))`,
+            "giu"
+        );
+        const bodies = [...content.matchAll(regex)].map(m => m[1]);
+        if (bodies.length === 0) continue;
+        if (bodies.some(b => b.includes('\\begin{itemize}') || b.includes('\\begin{enumerate}'))) {
+            errors.push(`Regla estricta violada en '${sec.name}': Se detectó uso de viñetas o numeraciones (\\begin{itemize}/\\begin{enumerate}). En APA 7, esta sección debe redactarse estrictamente en párrafos continuos con sangría de 1.27 cm.`);
+        } else {
+            passes.push(`Sección '${sec.name}': Redactada en párrafos continuos sin viñetas ni numeraciones.`);
         }
     }
 
