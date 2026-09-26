@@ -58,13 +58,13 @@ Cuando el usuario proporciona código `.tex` para revisar o corregir:
 3. Verificar si existen `\begin{itemize}` o `\begin{enumerate}` dentro de `Objetivos`, `Conclusiones` o `Recomendaciones` y convertirlos a prosa continua con sangría.
 4. Detectar tablas con líneas verticales (`|c|c|`) y transformarlas a la sintaxis `booktabs`.
 5. Comprobar buenas prácticas de tipografía (comillas, guiones, espacios duros `~`).
-6. Ejecutar o recomendar el script de auditoría:
-   `node scripts/apa7_latex_linter.js ruta/al/documento.tex` (o con python: `python scripts/apa7_latex_linter.py`)
+6. Ejecutar o recomendar el script de auditoría. Las rutas `scripts/`, `references/` y `resources/` son **relativas a la carpeta de esta skill** (la que contiene este `SKILL.md`), no al proyecto del usuario; usa la ruta absoluta de la skill al invocarlos:
+   `node <carpeta-de-la-skill>/scripts/apa7_latex_linter.js ruta/al/documento.tex` (o con Python: `python <carpeta-de-la-skill>/scripts/apa7_latex_linter.py ruta/al/documento.tex`)
 7. **Aplicar directamente las correcciones en el archivo** utilizando las herramientas de edición de archivos y reportar los cambios al usuario.
 
 ### Modo 2: Generación de Plantilla y Scaffolding
 Cuando el usuario solicita comenzar un trabajo nuevo:
-1. Proporcionar la estructura basada en `resources/plantilla_apa7.tex`.
+1. Leer `resources/plantilla_apa7.tex` (dentro de la carpeta de la skill) y copiarla al proyecto del usuario como base; no editar la plantilla original de la skill.
 2. Incluir portada formal, resumen con palabras clave, abstract con keywords, tabla de contenido, listas preliminares (si aplican), introducción, justificación, objetivos en prosa, desarrollo por niveles 1 a 5, conclusiones en prosa, referencias y apéndices.
 
 ### Modo 3: Referenciación y Citación BibLaTeX
