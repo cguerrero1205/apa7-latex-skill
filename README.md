@@ -6,7 +6,7 @@
 [![Linter](https://img.shields.io/badge/Linter-Node.js%20%7C%20Python-orange.svg)](#herramienta-de-auditoría-linter)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-Skill completa y suite de ingeniería tipográfica para que asistentes de Inteligencia Artificial (como **Google Antigravity**, **Claude Code**, etc.) y autores académicos puedan redactar, formatear, auditar y corregir documentos en **LaTeX** bajo las **Normas APA 7ª edición**, aplicando los más altos estándares de calidad editorial.
+Skill completa y suite de ingeniería tipográfica para que asistentes de Inteligencia Artificial (como **Google Antigravity**, **OpenAI Codex**, **Claude Code**, etc.) y autores académicos puedan redactar, formatear, auditar y corregir documentos en **LaTeX** bajo las **Normas APA 7ª edición**, aplicando los más altos estándares de calidad editorial.
 
 ---
 
@@ -23,7 +23,7 @@ Skill completa y suite de ingeniería tipográfica para que asistentes de Inteli
 
 ## 🚀 Instalación Rápida
 
-La skill sigue el estándar abierto [Agent Skills](https://agentskills.io/) (`SKILL.md` con `name` y `description`), por lo que funciona tanto en **Google Antigravity** como en **Claude** (Claude Code, app de escritorio y claude.ai). Solo cambia la carpeta donde se instala. Clona siempre en una carpeta llamada `apa7-latex`.
+La skill sigue el estándar abierto [Agent Skills](https://agentskills.io/) (`SKILL.md` con `name` y `description`), por lo que funciona en **Google Antigravity**, **OpenAI Codex** y **Claude** (Claude Code, app de escritorio y claude.ai). Solo cambia la carpeta donde se instala. Clona siempre en una carpeta llamada `apa7-latex`.
 
 ### Google Antigravity
 
@@ -39,6 +39,23 @@ git clone https://github.com/cguerrero1205/apa7-latex-skill.git ~/.gemini/config
 mkdir -p .agents/skills
 git clone https://github.com/cguerrero1205/apa7-latex-skill.git .agents/skills/apa7-latex
 ```
+
+### OpenAI Codex
+
+**Personal** (todas tus sesiones y proyectos):
+
+```bash
+git clone https://github.com/cguerrero1205/apa7-latex-skill.git ~/.codex/skills/apa7-latex
+```
+
+**Por proyecto** (en la raíz de tu proyecto):
+
+```bash
+mkdir -p .codex/skills
+git clone https://github.com/cguerrero1205/apa7-latex-skill.git .codex/skills/apa7-latex
+```
+
+Codex la puede activar automáticamente por su `description`, o puedes invocarla directamente con `$apa7-latex`.
 
 ### Claude Code (CLI, IDE y pestaña Code de la app de escritorio)
 
