@@ -1,0 +1,7 @@
+interface:
+  display_name: "APA 7 LaTeX"
+  short_description: "Format and audit LaTeX documents in APA 7"
+  brand_color: "#2563EB"
+  default_prompt: "Use $apa7-latex to audit and correct this LaTeX document for APA 7 compliance."
+policy:
+  allow_implicit_invocation: true
