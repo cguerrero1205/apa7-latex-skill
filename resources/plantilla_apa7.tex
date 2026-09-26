@@ -1,0 +1,341 @@
+\documentclass[12pt,letterpaper]{article}
+
+% ==============================================================================
+% PLANTILLA MAESTRA DE LATEX PARA NORMAS APA 7ª EDICIÓN
+% Cumplimiento estricto de lineamientos tipográficos, jerarquía y estructura
+% ==============================================================================
+
+% --- Codificación e Idioma ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+
+% --- Geometría: Tamaño Carta y Márgenes de 2.54 cm (1 pulgada) en los 4 costados ---
+\usepackage[letterpaper,margin=2.54cm]{geometry}
+
+% --- Tipografía: Times New Roman 12 pt ---
+\usepackage{newtxtext,newtxmath}
+
+% --- Espaciado: Interlineado 2.0 y sin espacio adicional entre párrafos ---
+\usepackage{setspace}
+\doublespacing
+\setlength{\parskip}{0pt}
+
+% --- Sangría de primera línea obligatoria (1.27 cm) en TODOS los párrafos ---
+\usepackage{indentfirst}
+\setlength{\parindent}{1.27cm}
+
+% --- Alineación a la izquierda (sin justificar) ---
+\usepackage{ragged2e}
+\RaggedRight
+
+% --- Paginación y Encabezados ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}                    % Números arábigos arriba a la derecha desde la portada
+% \lhead{TÍTULO CORTO DEL TRABAJO}  % Encabezado opcional (mayúsculas, máx. 50 caracteres)
+\renewcommand{\headrulewidth}{0pt}  % Sin líneas horizontales en el encabezado
+
+% --- Supresión total de numeración de secciones (sin 1.1, sin capítulos) ---
+\setcounter{secnumdepth}{0}
+
+% --- Jerarquía de Títulos (Niveles 1 al 5) con titlesec ---
+\usepackage{titlesec}
+
+% Nivel 1: Centrado, Negrita, Tipo Título (cada \section inicia en nueva página con \clearpage)
+\titleformat{\section}[block]
+  {\normalfont\normalsize\bfseries\filcenter}{}{0pt}{}
+\titlespacing*{\section}{0pt}{12pt}{12pt}
+
+% Nivel 2: Alineado a la izquierda, Negrita
+\titleformat{\subsection}[block]
+  {\normalfont\normalsize\bfseries\RaggedRight}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{12pt}{12pt}
+
+% Nivel 3: Alineado a la izquierda, Negrita y Cursiva
+\titleformat{\subsubsection}[block]
+  {\normalfont\normalsize\bfseries\itshape\RaggedRight}{}{0pt}{}
+\titlespacing*{\subsubsection}{0pt}{12pt}{12pt}
+
+% Nivel 4: Alineado a la izquierda, Sangría 1.27cm, Negrita, Punto final, Texto en la misma línea
+\titleformat{\paragraph}[runin]
+  {\normalfont\normalsize\bfseries}{\hspace*{1.27cm}}{0pt}{}[.]
+\titlespacing*{\paragraph}{0pt}{12pt}{0.5em}
+
+% Nivel 5: Alineado a la izquierda, Sangría 1.27cm, Negrita y Cursiva, Punto final, Texto en la misma línea
+\titleformat{\subparagraph}[runin]
+  {\normalfont\normalsize\bfseries\itshape}{\hspace*{1.27cm}}{0pt}{}[.]
+\titlespacing*{\subparagraph}{0pt}{12pt}{0.5em}
+
+% --- Tablas APA 7 (Booktabs, sin líneas verticales) ---
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{tabularx}
+
+% --- Figuras y Rótulos APA 7 (Línea 1: Etiqueta negrita / Línea 2: Título cursiva) ---
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{
+  justification=RaggedRight,
+  singlelinecheck=false,
+  labelsep=newline,
+  labelfont=bf,
+  textfont=it
+}
+
+% --- Redefinición Estricta de Nombres en Español ---
+\renewcommand{\contentsname}{Tabla de Contenido}
+\renewcommand{\listtablename}{Lista de Tablas}
+\renewcommand{\listfigurename}{Lista de Figuras}
+\renewcommand{\tablename}{Tabla}
+\renewcommand{\figurename}{Figura}
+
+% --- Entorno para Citas Largas (>= 40 palabras) ---
+\newenvironment{apaquote}
+  {\list{}{\leftmargin=1.27cm\rightmargin=0pt\parsep=0pt\setstretch{1.5}}\item\relax}
+  {\endlist}
+
+% --- Citas y Bibliografía APA 7 con biblatex ---
+\usepackage{csquotes}
+\usepackage[
+  style=apa,
+  backend=biber,
+  language=spanish
+]{biblatex}
+\addbibresource{referencias_ejemplo.bib}
+
+\defbibheading{apa7bib}[\textbf{Referencias Bibliográficas}]{%
+  \clearpage
+  \section*{#1}%
+  \addcontentsline{toc}{section}{#1}%
+}
+
+% ==============================================================================
+% CUERPO DEL DOCUMENTO
+% ==============================================================================
+\begin{document}
+
+% ------------------------------------------------------------------------------
+% 1. PORTADA ACADÉMICA
+% ------------------------------------------------------------------------------
+\begin{titlepage}
+    \pagestyle{fancy}
+    \fancyhf{}
+    \rhead{\thepage}
+    \vspace*{2cm}
+    \begin{center}
+        {\bfseries\large Título del Trabajo de Investigación en Estilo APA Séptima Edición\par}
+        \vspace{2.5cm}
+        {Nombre Completo del Estudiante\par}
+        % Si son varios autores:
+        % {Nombre Completo del Segundo Estudiante\par}
+        \vspace{2.5cm}
+        {Asesor\par}
+        {Nombre y Apellidos del Docente Asesor\par}
+        \vfill
+        {Institución Educativa Superior\par}
+        {Facultad de Humanidades y Ciencias Sociales\par}
+        {Programa Académico de Pregrado o Posgrado\par}
+        {2024\par}
+    \end{center}
+\end{titlepage}
+
+% ------------------------------------------------------------------------------
+% 2. DEDICATORIA (OPCIONAL)
+% Regla: Centrado, sin sangría de primera línea, en página nueva
+% ------------------------------------------------------------------------------
+\clearpage
+\vspace*{\fill}
+\begin{center}
+    \textit{A mi familia, por su incondicional apoyo, paciencia y motivación durante cada etapa de este proceso formativo.}
+\end{center}
+\vspace*{\fill}
+
+% ------------------------------------------------------------------------------
+% 3. AGRADECIMIENTOS (OPCIONAL)
+% Regla: Centrado, sin sangría de primera línea, en página nueva
+% ------------------------------------------------------------------------------
+\clearpage
+\vspace*{\fill}
+\begin{center}
+    \textit{Expreso mi sincero agradecimiento al profesorado por sus valiosas orientaciones conceptuales y a las instituciones participantes que hicieron posible el trabajo de campo.}
+\end{center}
+\vspace*{\fill}
+
+% ------------------------------------------------------------------------------
+% 4. RESUMEN
+% Regla: Máx. 350 palabras, un solo párrafo, sin sangría, palabras clave sangradas
+% ------------------------------------------------------------------------------
+\clearpage
+\begin{center}
+    \textbf{\large Resumen}
+\end{center}
+\vspace{12pt}
+\noindent El resumen es un texto breve y estructurado de máximo 350 palabras que se redacta en un único párrafo sin sangría de primera línea, alineado a la izquierda. Su propósito fundamental radica en ofrecer al lector una visión panorámica clara y precisa sobre el problema de investigación abordado, los objetivos trazados, la metodología empleada, los hallazgos empíricos más relevantes y las principales conclusiones derivadas del estudio. La información debe formularse con rigor y objetividad analítica, permitiendo una rápida identificación de la temática central y del aporte de la investigación al campo disciplinar correspondiente.
+
+\vspace{12pt}
+\noindent\hspace*{1.27cm}\textbf{\textit{Palabras clave:}} Educación superior, metodología pedagógica, aprendizaje autónomo, evaluación formativa.
+
+% ------------------------------------------------------------------------------
+% 5. ABSTRACT
+% Regla: Resumen en inglés, un solo párrafo, sin sangría, keywords sangradas
+% ------------------------------------------------------------------------------
+\clearpage
+\begin{center}
+    \textbf{\large Abstract}
+\end{center}
+\vspace{12pt}
+\noindent The abstract is a concise, well-structured text of up to 350 words written as a single paragraph without first-line indentation, aligned to the left. It provides readers with an accurate and comprehensive overview of the research problem, core objectives, methodological approach, main empirical results, and principal conclusions. The academic prose must remain direct and objective, enabling scholars to efficiently evaluate the investigation's relevance and contributions to the academic discipline.
+
+\vspace{12pt}
+\noindent\hspace*{1.27cm}\textbf{\textit{Keywords:}} Higher education, pedagogical methodology, autonomous learning, formative assessment.
+
+% ------------------------------------------------------------------------------
+% 6. TABLA DE CONTENIDO Y LISTAS PRELIMINARES
+% Cada una inicia en página nueva
+% ------------------------------------------------------------------------------
+\clearpage
+\tableofcontents
+
+\clearpage
+\listoftables
+
+\clearpage
+\listoffigures
+
+% ------------------------------------------------------------------------------
+% 7. INTRODUCCIÓN
+% Regla: Título Nivel 1 centrado negrita, sangría 1.27cm en cada párrafo
+% ------------------------------------------------------------------------------
+\clearpage
+\section{Introducción}
+
+En la producción de textos académicos es indispensable adoptar estándares rigurosos que guíen la estructura formal y la coherencia argumentativa del discurso científico. Este trabajo aborda las dinámicas contemporáneas de la investigación universitaria, contextualizando los antecedentes conceptuales que orientan el estudio. Cada párrafo incluye rigurosamente la sangría de primera línea de 1.27 cm.
+
+Asimismo, se delimita el alcance de la investigación y se exponen las preguntas orientadoras que sustentan el diseño metodológico. La formulación de ideas se construye manteniendo una postura analítica y objetiva, apoyándose en la literatura especializada y respetando las normas éticas de citación vigentes.
+
+% ------------------------------------------------------------------------------
+% 8. JUSTIFICACIÓN
+% ------------------------------------------------------------------------------
+\clearpage
+\section{Justificación}
+
+La justificación permite explicitar la pertinencia social, teórica y práctica de la investigación, argumentando el impacto de sus aportes en la comunidad académica y en los contextos reales de aplicación.
+
+A través de esta indagación se busca suplir los vacíos conceptuales detectados en diagnósticos previos, proponiendo alternativas de solución viables y fundamentadas en evidencia empírica verificable.
+
+% ------------------------------------------------------------------------------
+% 9. OBJETIVOS
+% Regla estricta: PROHIBIDO usar viñetas o numeraciones. Párrafos continuos.
+% ------------------------------------------------------------------------------
+\clearpage
+\section{Objetivos}
+
+\subsection{Objetivo General}
+Analizar la incidencia del uso reflexivo de herramientas tecnopedagógicas en el fortalecimiento de las competencias investigativas de estudiantes de educación superior durante el período lectivo evaluado.
+
+\subsection{Objetivos Específicos}
+Identificar los factores metodológicos y didácticos que intervienen en la mediación virtual y su impacto en el rendimiento académico del estudiantado.
+
+Caracterizar las prácticas de estudio y autorregulación del aprendizaje que emplean los participantes frente a las actividades sincrónicas y asincrónicas propuestas.
+
+Evaluar los niveles de apropiación conceptual y competencia analítica desarrollados por los estudiantes al término de la intervención formativa.
+
+% ------------------------------------------------------------------------------
+% 10. CONTENIDO DEL TRABAJO Y EJEMPLOS DE FORMATO
+% Demostración de jerarquía de títulos, tablas, figuras y citas
+% ------------------------------------------------------------------------------
+\clearpage
+\section{Contenido del Trabajo}
+
+En este apartado se presenta el cuerpo principal del desarrollo conceptual y empírico. A continuación se ejemplifica la aplicación de los diferentes niveles de encabezados según las directrices de la 7ª edición.
+
+\subsection{Revisión del Estado del Arte}
+Este subtítulo corresponde al Nivel 2 (alineado a la izquierda, en negrita y con mayúsculas en palabras principales). El texto que le sigue comienza en un párrafo nuevo con su sangría reglamentaria de 1.27 cm.
+
+\subsubsection{Enfoques Pedagógicos Contemporáneos}
+Este encabezado corresponde al Nivel 3 (alineado a la izquierda, en negrita y cursiva). El párrafo posterior continúa con sangría regular de primera línea.
+
+\paragraph{Aprendizaje Basado en Problemas} Este encabezado ejemplifica el Nivel 4: lleva sangría de 1.27 cm, negrita, mayúscula inicial en palabras principales y punto final reglamentario. El texto inicia en la misma línea (formato run-in).
+
+\subparagraph{Estrategias de Andamiaje Cognitivo} Este encabezado corresponde al Nivel 5: conserva la sangría de 1.27 cm, combina negrita con cursiva, finaliza con punto y el texto continúa en la misma línea.
+
+\subsection{Ejemplos de Citación en el Texto}
+Las citas textuales de menos de 40 palabras se incluyen dentro del párrafo. Por ejemplo, en formato narrativo: \textcite{crichton1969} señala que \enquote{la amenaza de la contaminación biológica requiere protocolos científicos de aislamiento inmediato} (p.~45). Por otra parte, en formato parentético: \enquote{la teoría científica se robustece a través de la contrastación sistemática de hipótesis} \parencite[p.~78]{ocana2020}.
+
+Para citas textuales de 40 o más palabras, se utiliza el entorno en bloque \texttt{apaquote}, sin comillas y con sangría completa:
+
+\begin{apaquote}
+La educación superior contemporánea exige trascender los modelos exclusivamente transmisivos de información para transitar hacia comunidades activas de indagación donde los aprendices construyan colectivamente soluciones viables ante las problemáticas complejas de sus propios entornos regionales y globales. (p.~102)
+\end{apaquote}
+
+\subsection{Presentación de Tablas y Figuras}
+Las tablas se diseñan con el paquete \texttt{booktabs}, eliminando completamente cualquier línea vertical.
+
+\begin{table}[htbp]
+    \RaggedRight
+    \begin{threeparttable}
+        \caption{\label{tab:participantes}Distribución de Participantes según Nivel Formativo y Género}
+        \begin{tabularx}{\textwidth}{l c c c}
+            \toprule
+            Nivel de Formación & Femenino & Masculino & Total \\
+            \midrule
+            Pregrado & 45 & 38 & 83 \\
+            Especialización & 22 & 19 & 41 \\
+            Maestría & 18 & 15 & 33 \\
+            \bottomrule
+        \end{tabularx}
+        \vspace{4pt}
+        \begin{tablenotes}[flushleft]\footnotesize
+            \item \textit{Nota.} Esta tabla presenta la muestra estratificada participante en el estudio cuantitativo.
+            \item \textit{Fuente.} Autoría propia (2024).
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+% ------------------------------------------------------------------------------
+% 11. CONCLUSIONES
+% Regla estricta: PROHIBIDO usar viñetas o numeraciones. Párrafos continuos.
+% ------------------------------------------------------------------------------
+\clearpage
+\section{Conclusiones}
+
+Los hallazgos de la investigación confirman que la mediación pedagógica estructurada influye de manera positiva y directa en la autonomía académica de los estudiantes universitarios.
+
+Se constató que la implementación de estrategias basadas en el aprendizaje situado reduce significativamente la brecha de comprensión en los contenidos de mayor complejidad disciplinar.
+
+La interacción colaborativa guiada y la retroalimentación cualitativa oportuna se consolidaron como las variables de mayor correlación con la satisfacción y permanencia académica.
+
+% ------------------------------------------------------------------------------
+% 12. RECOMENDACIONES (OPCIONAL / SI APLICA)
+% Regla estricta: PROHIBIDO usar viñetas o numeraciones. Párrafos continuos.
+% ------------------------------------------------------------------------------
+\clearpage
+\section{Recomendaciones}
+
+Se sugiere a los comités curriculares incorporar talleres prácticos de formulación y redacción de proyectos desde los primeros semestres académicos.
+
+Es recomendable que futuras líneas de indagación profundicen en estudios longitudinales para evaluar la sostenibilidad del impacto de las herramientas digitales en posgrado.
+
+% ------------------------------------------------------------------------------
+% 13. REFERENCIAS BIBLIOGRÁFICAS
+% Sangría francesa y orden alfabético automático mediante biblatex
+% ------------------------------------------------------------------------------
+\printbibliography[heading=apa7bib]
+
+% ------------------------------------------------------------------------------
+% 14. APÉNDICES (OPCIONAL / SI APLICA)
+% Regla: Inicia en página nueva, encabezado en negrita sin punto, nombre en cursiva
+% ------------------------------------------------------------------------------
+\clearpage
+\begin{center}
+    {\bfseries Apéndice A\par}
+    \vspace{6pt}
+    {\itshape Cuestionario de Evaluación Diagnóstica de Habilidades Investigativas\par}
+\end{center}
+\vspace{18pt}
+
+A continuación se transcribe la matriz de ítems aplicada a la muestra de estudio durante la fase inicial de recolección de información...
+
+\end{document}

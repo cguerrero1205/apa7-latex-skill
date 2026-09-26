@@ -1,0 +1,20 @@
+# LaTeX auxiliary files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.lot
+*.lof
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
