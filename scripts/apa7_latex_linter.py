@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""
+r"""
 apa7_latex_linter.py - Auditor automático de documentos LaTeX bajo Normas APA 7a Edición.
 
 Verifica:
@@ -13,6 +13,11 @@ Verifica:
 import sys
 import re
 import os
+
+# Forzar UTF-8 en la salida (la consola de Windows usa cp1252 y no admite "✓").
+for _stream in (sys.stdout, sys.stderr):
+    if hasattr(_stream, "reconfigure"):
+        _stream.reconfigure(encoding="utf-8", errors="replace")
 
 class APA7LatexLinter:
     def __init__(self, filepath):
@@ -65,23 +70,28 @@ class APA7LatexLinter:
 
     def check_prohibited_lists_in_key_sections(self):
         """Verifica que Objetivos, Conclusiones y Recomendaciones no usen itemize o enumerate."""
+        # Cualquier nivel de título cuyo texto empiece por la palabra clave
+        # (p. ej. "Objetivos Específicos", "Objetivo General", "Conclusiones y Recomendaciones").
+        # El cuerpo termina en el siguiente título de cualquier nivel o en \end{document}.
         sections_to_check = [
-            ("Objetivos", r'\\section\*?\{Objetivos\}(.*?)(?=\\section|\Z)'),
-            ("Conclusiones", r'\\section\*?\{Conclusiones\}(.*?)(?=\\section|\Z)'),
-            ("Recomendaciones", r'\\section\*?\{Recomendaciones\}(.*?)(?=\\section|\Z)')
+            ("Objetivos", r'Objetivos?'),
+            ("Conclusiones", r'Conclusi(?:ó|o)n(?:es)?'),
+            ("Recomendaciones", r'Recomendaci(?:ó|o)n(?:es)?'),
         ]
+        heading_end = r'(?=\\(?:sub)*section\*?\{|\\end\{document\}|\Z)'
 
-        for sec_name, pattern in sections_to_check:
-            match = re.search(pattern, self.content, re.DOTALL | re.IGNORECASE)
-            if match:
-                sec_text = match.group(1)
-                if "\\begin{itemize}" in sec_text or "\\begin{enumerate}" in sec_text:
-                    self.errors.append(
-                        f"Regla estricta violada en '{sec_name}': Se detectó uso de viñetas o numeraciones (\\begin{{itemize}}/\\begin{{enumerate}}). "
-                        f"En APA 7, esta sección debe redactarse estrictamente en párrafos continuos con sangría de 1.27 cm."
-                    )
-                else:
-                    self.passes.append(f"Sección '{sec_name}': Redactada en párrafos continuos sin viñetas ni numeraciones.")
+        for sec_name, keyword in sections_to_check:
+            pattern = r'\\(?:sub)*section\*?\{\s*' + keyword + r'(?!\w)[^}]*\}(.*?)' + heading_end
+            bodies = [m.group(1) for m in re.finditer(pattern, self.content, re.DOTALL | re.IGNORECASE)]
+            if not bodies:
+                continue
+            if any("\\begin{itemize}" in b or "\\begin{enumerate}" in b for b in bodies):
+                self.errors.append(
+                    f"Regla estricta violada en '{sec_name}': Se detectó uso de viñetas o numeraciones (\\begin{{itemize}}/\\begin{{enumerate}}). "
+                    f"En APA 7, esta sección debe redactarse estrictamente en párrafos continuos con sangría de 1.27 cm."
+                )
+            else:
+                self.passes.append(f"Sección '{sec_name}': Redactada en párrafos continuos sin viñetas ni numeraciones.")
 
     def check_table_vertical_lines(self):
         """Verifica que las tablas no tengan barras verticales '|'."""
@@ -97,7 +107,7 @@ class APA7LatexLinter:
             self.passes.append("Tablas APA 7: Cero bordes verticales detectados en las tablas.")
 
     def check_numbered_headings(self):
-        """Verifica si el usuario numeró manualmente los títulos (ej: \section{1. Introducción})."""
+        r"""Verifica si el usuario numeró manualmente los títulos (ej: \section{1. Introducción})."""
         numbered_titles = re.findall(r'\\(?:section|subsection|subsubsection|paragraph)\*?\{\s*\d+[\.\)]\s*[^}]+\}', self.content)
         if numbered_titles:
             self.errors.append(
